@@ -1,43 +1,67 @@
-# Initial Project Structure and Configuration Tasks
+# SoloDungeon
 
-This project is structured into two main directories: `frontend` and `backend`.
+SoloDungeon is a D&D inspired game where you can create your own character, explore dungeons, and engage in thrilling combats. This project is structured into backend, frontend, database, enhancements, testing, and documentation.
 
-## Frontend
+## Getting Started
 
-The frontend directory is currently a placeholder, with further development pending.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Backend
+### Prerequisites
 
-The backend directory is divided into several subdirectories, each serving a specific purpose:
+- Python 3.8+
+- Node.js and npm
+- AWS account with DynamoDB
 
-- `ai`: This directory will contain scripts related to AI integration.
-- `api`: This directory is structured into `routes`, `controllers`, and `models` for organized API development.
-- `content`: This directory is reserved for future use.
-- `database`: This directory contains `db_config.py` for database configuration and `schema.sql` for defining the database schema.
-- `game_logic`: This directory contains `combat_system.py` and `character_model.py` for game mechanics development.
-- `helpers`: This directory contains `utilities.py` for backend utility functions.
-- `integrations`: This directory contains `payment_gateway_integration.py` for future payment gateway integration.
+### Installation
 
-## Root Directory Configurations
+1. Clone the repository
+```bash
+git clone https://github.com/username/SoloDungeon.git
+```
 
-The root directory contains several configuration and documentation files:
+2. Install Python dependencies
+```bash
+pip install -r requirements.txt
+```
 
-- `.gitignore`: This file contains Node.js and React ignore patterns.
-- `package.json`: This file is located in the `backend` directory and lists Flask as a dependency.
-- `CODING_STANDARDS.md`: This file outlines the coding standards for this project.
-- `README.md`: This file provides an overview of the project structure and configuration tasks.
-- `LICENSE`: This file contains the project's license.
-- `CONTRIBUTING.md`: This file provides guidelines for contributing to the project.
-- `SECURITY.md`: This file outlines the project's security policy.
-- `.env.example`: This file is located in the `backend` directory and serves as a template for environment variables.
+3. Install JavaScript dependencies
+```bash
+cd frontend
+npm install
+```
 
-## Documentation
+4. Set up your AWS credentials for DynamoDB access in `database/dynamodb_config.py`
 
-Each backend subdirectory contains a `README.md` file for documentation:
+5. Run the Flask server
+```bash
+python backend/app.py
+```
 
-- `backend/api/README.md`: This file will detail the future API structure and endpoints.
-- `backend/database/README.md`: This file will document the database schema and configurations.
-- `backend/game_logic/README.md`: This file will explain the game mechanics and rules.
-- `backend/ai/README.md`: This file will outline the AI integration approach.
+6. In a new terminal window, start the React app
+```bash
+cd frontend
+npm start
+```
 
-Please refer to these individual README files for more detailed information.
+## Project Structure
+
+- `backend/`: Contains the Python code for the Flask server, game mechanics, and API endpoints.
+- `database/`: Contains the Python code for DynamoDB configuration, schema design, and CRUD operations.
+- `frontend/`: Contains the React code for the user interface.
+- `enhancements/`: Contains the Python code for advanced features and improvements.
+- `tests/`: Contains the Python and JavaScript code for unit and integration tests.
+- `docs/`: Contains the Python and Markdown files for code and project documentation.
+
+## Contributing
+
+Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the MIT License - see the `LICENSE.md` file for details.
+
+## Acknowledgments
+
+- Dungeons & Dragons for the inspiration and game mechanics.
+- Flask and React for the robust web development frameworks.
+- AWS DynamoDB for the scalable and reliable database service.
