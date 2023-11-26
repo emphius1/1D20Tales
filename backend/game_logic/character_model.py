@@ -1,13 +1,19 @@
 ```python
-class Character:
-    def __init__(self, name, health, attack_power):
-        self.name = name
-        self.health = health
-        self.attack_power = attack_power
+import openai
+from openai.api_resources.abstract.api_resource import APIResource
 
-    def attack(self, other_character):
-        other_character.health -= self.attack_power
+class CharacterModelEnhancement(APIResource):
+    def __init__(self, character_template):
+        self.character_template = character_template
+        self.openai = openai.OpenAI(api_key='your-api-key')
 
-    def is_alive(self):
-        return self.health > 0
+    def generate_backstory(self):
+        prompt = f"Generate a unique backstory for a character with the following traits: {self.character_template}"
+        response = self.openai.Completion.create(engine="text-davinci-002", prompt=prompt, max_tokens=150)
+        return response.choices[0].text.strip()
+
+    def generate_traits(self):
+        prompt = f"Generate unique personality traits for a character with the following traits: {self.character_template}"
+        response = self.openai.Completion.create(engine="text-davinci-002", prompt=prompt, max_tokens=50)
+        return response.choices[0].text.strip()
 ```
