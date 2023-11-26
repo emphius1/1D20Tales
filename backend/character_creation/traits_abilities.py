@@ -7,15 +7,20 @@ class TraitsAbilities:
         self.traits = []
         self.abilities = []
 
-    def select_traits(self, race: Race, class_: Class):
-        self.traits = race.traits + class_.traits
+    def add_trait(self, trait):
+        self.traits.append(trait)
 
-    def select_abilities(self, class_: Class):
-        self.abilities = class_.abilities
+    def add_ability(self, ability):
+        self.abilities.append(ability)
 
-    def get_traits(self):
-        return self.traits
+def generate_traits_abilities(race: Race, class_: Class):
+    traits_abilities = TraitsAbilities()
 
-    def get_abilities(self):
-        return self.abilities
+    for trait in race.traits:
+        traits_abilities.add_trait(trait)
+
+    for ability in class_.abilities:
+        traits_abilities.add_ability(ability)
+
+    return traits_abilities
 ```

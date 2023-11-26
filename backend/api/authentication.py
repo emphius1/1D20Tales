@@ -3,9 +3,9 @@ from flask import Blueprint, request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from itsdangerous import BadSignature, SignatureExpired
-from app import app, db, login_manager
-from models import User
+from itsdangerous import SignatureExpired, BadSignature
+from backend.models import User
+from backend import db, login_manager
 
 auth = Blueprint('auth', __name__)
 
@@ -25,20 +25,16 @@ def login():
     if not user or not check_password_hash(user.password, data['password']):
         return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
     login_user(user)
-    token = user.generate_auth_token()
-    return jsonify({ 'token': token.decode('ascii') })
+    token = user.get_token()
+    return jsonify({'token' : token.decode('UTF-8')})
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return jsonify({'message': 'Logged out successfully!'}), 200
+    return jsonify({'message' : 'Logged out successfully!'})
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
 ```

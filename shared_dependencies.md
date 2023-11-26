@@ -1,23 +1,31 @@
 Shared Dependencies:
 
-1. **Python Classes:** The classes defined for D&D races, classes, and backgrounds will be shared across multiple backend files. These include `races.py`, `classes.py`, `backgrounds.py`, `base_stats.py`, `traits_abilities.py`, `health_mana.py`, `experience_leveling.py`, and `character_module.py`.
+1. **Python Classes:** The classes defined for D&D races, classes, and backgrounds will be shared across multiple backend files. These include `races.py`, `classes.py`, `backgrounds.py`, `base_stats.py`, `traits_abilities.py`, and `appearance.py`.
 
-2. **Flask App:** The Flask app instance created in `app.py` will be shared across all blueprint files (`characters.py`, `inventory.py`, `combat.py`) and API files (`character.py`, `inventory.py`, `authentication.py`).
+2. **Flask Blueprints:** The Flask blueprints defined for different game aspects will be shared across `app.py`, `characters.py`, `inventory.py`, and `combat.py`.
 
-3. **Database Configuration:** The DynamoDB configuration set up in `dynamodb_config.py` will be used in `schemas.py` and `crud_operations.py`.
+3. **API Endpoints:** The API endpoints for character creation, retrieval, update, deletion, inventory management, and skill upgrades will be shared across `character.py`, `inventory.py`, and `authentication.py`.
 
-4. **Database Schemas:** The schemas designed in `schemas.py` will be used in `crud_operations.py` and `dynamodb.py`.
+4. **DynamoDB Tables:** The DynamoDB tables for characters, inventory, and game states will be shared across `dynamodb_config.py`, `characters.py`, `inventory.py`, and `game_states.py`.
 
-5. **API Endpoints:** The endpoints defined in `character.py` and `inventory.py` will be used in the frontend services file `api.js`.
+5. **Database Schemas:** The database schemas for each table will be shared across `characters.py`, `inventory.py`, and `game_states.py`.
 
-6. **DOM Element IDs:** IDs for DOM elements created in frontend components (`CharacterCreationForm.js`, `RaceClassDropdown.js`, `CharacterNameTraits.js`, `MainGameInterface.js`, `InteractiveMap.js`, `QuestLog.js`, `DialogueBox.js`) will be used in frontend services (`api.js`) and state management (`gameData.js`).
+6. **CRUD Operations:** The CRUD operations for DynamoDB will be shared across `characters.py`, `inventory.py`, and `game_states.py`.
 
-7. **React Components:** Components created in `CharacterCreationForm.js`, `RaceClassDropdown.js`, `CharacterNameTraits.js`, `MainGameInterface.js`, `InteractiveMap.js`, `QuestLog.js`, `DialogueBox.js` will be used in unit tests (`frontend.js`).
+7. **React Components:** The React components for character creation, gameplay, and inventory will be shared across multiple frontend files. These include `CharacterCreationForm.js`, `RaceClassDropdown.js`, `CharacterNameTraits.js`, `MainGameInterface.js`, `InteractiveMap.js`, `QuestLog.js`, and `DialogueBox.js`.
 
-8. **Python Functions:** Functions created in backend files will be used in unit tests (`backend.py`) and integration tests (`integration.py`).
+8. **API Services:** The services for making API calls will be shared across `api.js` and `gameData.js`.
 
-9. **API Calls:** API calls made in `api.js` will be used in `gameData.js` for state management.
+9. **Enhancements:** The enhancements for character module, game mechanics, API, and DynamoDB will be shared across `character_module.py`, `game_mechanics.py`, `api.py`, and `dynamodb.py`.
 
-10. **Enhancements:** Enhancements made in `character_module.py`, `game_mechanics.py`, `api.py`, `dynamodb.py` will be used in the respective original files.
+10. **Unit Tests:** The unit tests for backend and frontend will be shared across `backend.py` and `frontend.js`.
 
-11. **Documentation:** Code documentation will reference function and component names from all files. Project documentation will reference API endpoints, database schemas, and major development steps.
+11. **Integration Tests:** The integration tests will be shared across `integration.py`.
+
+12. **Documentation:** The code and project documentation will be shared across `code_documentation.py` and `project_documentation.py`.
+
+13. **DOM Element IDs:** The IDs of DOM elements that JavaScript functions will use are shared across all frontend files.
+
+14. **Message Names:** The names of messages used in the application are shared across all frontend and backend files.
+
+15. **Function Names:** The names of functions used in the application are shared across all frontend and backend files.

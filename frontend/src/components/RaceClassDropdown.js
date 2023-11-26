@@ -1,4 +1,3 @@
-```javascript
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -51,4 +50,3 @@ const RaceClassDropdown = () => {
 };
 
 export default RaceClassDropdown;
-```

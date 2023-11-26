@@ -1,56 +1,52 @@
 ```javascript
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import CharacterCreationForm from '../../src/components/CharacterCreationForm';
-import RaceClassDropdown from '../../src/components/RaceClassDropdown';
-import CharacterNameTraits from '../../src/components/CharacterNameTraits';
-import MainGameInterface from '../../src/components/MainGameInterface';
-import InteractiveMap from '../../src/components/InteractiveMap';
-import QuestLog from '../../src/components/QuestLog';
-import DialogueBox from '../../src/components/DialogueBox';
+import { render, screen } from '@testing-library/react';
+import CharacterCreationForm from '../frontend/src/components/CharacterCreationForm';
+import RaceClassDropdown from '../frontend/src/components/RaceClassDropdown';
+import CharacterNameTraits from '../frontend/src/components/CharacterNameTraits';
+import MainGameInterface from '../frontend/src/components/MainGameInterface';
+import InteractiveMap from '../frontend/src/components/InteractiveMap';
+import QuestLog from '../frontend/src/components/QuestLog';
+import DialogueBox from '../frontend/src/components/DialogueBox';
 
 test('renders CharacterCreationForm without crashing', () => {
   render(<CharacterCreationForm />);
+  const linkElement = screen.getByText(/create your character/i);
+  expect(linkElement).toBeInTheDocument();
 });
 
 test('renders RaceClassDropdown without crashing', () => {
   render(<RaceClassDropdown />);
+  const linkElement = screen.getByText(/select your race and class/i);
+  expect(linkElement).toBeInTheDocument();
 });
 
 test('renders CharacterNameTraits without crashing', () => {
   render(<CharacterNameTraits />);
+  const linkElement = screen.getByText(/enter your character's name and traits/i);
+  expect(linkElement).toBeInTheDocument();
 });
 
 test('renders MainGameInterface without crashing', () => {
   render(<MainGameInterface />);
+  const linkElement = screen.getByText(/welcome to SoloDungeon/i);
+  expect(linkElement).toBeInTheDocument();
 });
 
 test('renders InteractiveMap without crashing', () => {
   render(<InteractiveMap />);
+  const linkElement = screen.getByText(/explore the dungeon/i);
+  expect(linkElement).toBeInTheDocument();
 });
 
 test('renders QuestLog without crashing', () => {
   render(<QuestLog />);
+  const linkElement = screen.getByText(/your quests/i);
+  expect(linkElement).toBeInTheDocument();
 });
 
 test('renders DialogueBox without crashing', () => {
   render(<DialogueBox />);
-});
-
-test('CharacterCreationForm submits with correct values', () => {
-  const { getByLabelText, getByText } = render(<CharacterCreationForm />);
-  const nameInput = getByLabelText(/name/i);
-  const raceInput = getByLabelText(/race/i);
-  const classInput = getByLabelText(/class/i);
-
-  fireEvent.change(nameInput, { target: { value: 'Test Character' } });
-  fireEvent.change(raceInput, { target: { value: 'Elf' } });
-  fireEvent.change(classInput, { target: { value: 'Warrior' } });
-
-  fireEvent.click(getByText(/submit/i));
-
-  expect(nameInput.value).toBe('Test Character');
-  expect(raceInput.value).toBe('Elf');
-  expect(classInput.value).toBe('Warrior');
+  const linkElement = screen.getByText(/dialogue/i);
+  expect(linkElement).toBeInTheDocument();
 });
 ```

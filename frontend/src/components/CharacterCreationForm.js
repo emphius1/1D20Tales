@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import RaceClassDropdown from './RaceClassDropdown';
 import CharacterNameTraits from './CharacterNameTraits';
-import api from '../services/api';
 
 const CharacterCreationForm = () => {
     const [character, setCharacter] = useState({
@@ -20,27 +19,23 @@ const CharacterCreationForm = () => {
         });
     };
 
-    const handleFormSubmit = async (event) => {
+    const handleFormSubmit = (event) => {
         event.preventDefault();
-        try {
-            const response = await api.createCharacter(character);
-            if (response.status === 200) {
-                alert('Character created successfully!');
-            }
-        } catch (error) {
-            console.error('Error creating character: ', error);
-        }
+        // Call API to create character
     };
 
     return (
         <form onSubmit={handleFormSubmit}>
             <CharacterNameTraits 
-                character={character} 
-                handleInputChange={handleInputChange} 
+                name={character.name} 
+                traits={character.traits} 
+                appearance={character.appearance} 
+                onInputChange={handleInputChange} 
             />
             <RaceClassDropdown 
-                character={character} 
-                handleInputChange={handleInputChange} 
+                race={character.race} 
+                class={character.class} 
+                onInputChange={handleInputChange} 
             />
             <button type="submit">Create Character</button>
         </form>

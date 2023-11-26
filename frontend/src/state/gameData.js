@@ -5,14 +5,14 @@ import { createContext, useReducer } from 'react';
 const initialState = {
   character: {},
   inventory: [],
-  gameProgress: {},
+  gameStates: {},
 };
 
 // Create context
 export const GameDataContext = createContext(initialState);
 
 // Reducer
-const reducer = (state, action) => {
+const gameDataReducer = (state, action) => {
   switch (action.type) {
     case 'SET_CHARACTER':
       return {
@@ -24,10 +24,10 @@ const reducer = (state, action) => {
         ...state,
         inventory: action.payload,
       };
-    case 'SET_GAME_PROGRESS':
+    case 'SET_GAME_STATES':
       return {
         ...state,
-        gameProgress: action.payload,
+        gameStates: action.payload,
       };
     default:
       return state;
@@ -36,10 +36,41 @@ const reducer = (state, action) => {
 
 // Provider component
 export const GameDataProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(gameDataReducer, initialState);
+
+  // Actions
+  const setCharacter = (character) => {
+    dispatch({
+      type: 'SET_CHARACTER',
+      payload: character,
+    });
+  };
+
+  const setInventory = (inventory) => {
+    dispatch({
+      type: 'SET_INVENTORY',
+      payload: inventory,
+    });
+  };
+
+  const setGameStates = (gameStates) => {
+    dispatch({
+      type: 'SET_GAME_STATES',
+      payload: gameStates,
+    });
+  };
 
   return (
-    <GameDataContext.Provider value={[state, dispatch]}>
+    <GameDataContext.Provider
+      value={{
+        character: state.character,
+        inventory: state.inventory,
+        gameStates: state.gameStates,
+        setCharacter,
+        setInventory,
+        setGameStates,
+      }}
+    >
       {children}
     </GameDataContext.Provider>
   );

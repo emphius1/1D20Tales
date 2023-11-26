@@ -1,42 +1,52 @@
 ```javascript
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import InteractiveMap from './InteractiveMap';
 import QuestLog from './QuestLog';
 import DialogueBox from './DialogueBox';
-import api from '../services/api';
 
-const MainGameInterface = () => {
-  const [character, setCharacter] = useState(null);
-  const [quests, setQuests] = useState([]);
-  const [dialogue, setDialogue] = useState('');
+class MainGameInterface extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            character: {},
+            inventory: [],
+            quests: [],
+            dialogue: ''
+        };
+    }
 
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      const response = await api.getCharacter();
-      setCharacter(response.data);
-    };
+    componentDidMount() {
+        // Fetch character, inventory, and quests data from the API
+    }
 
-    const fetchQuests = async () => {
-      const response = await api.getQuests();
-      setQuests(response.data);
-    };
+    handleDialogueUpdate = (dialogue) => {
+        this.setState({ dialogue });
+    }
 
-    fetchCharacter();
-    fetchQuests();
-  }, []);
+    render() {
+        const { character, inventory, quests, dialogue } = this.state;
 
-  const handleDialogue = (newDialogue) => {
-    setDialogue(newDialogue);
-  };
-
-  return (
-    <div className="main-game-interface">
-      <InteractiveMap character={character} handleDialogue={handleDialogue} />
-      <QuestLog quests={quests} />
-      <DialogueBox dialogue={dialogue} />
-    </div>
-  );
-};
+        return (
+            <div className="main-game-interface">
+                <div className="character-info">
+                    <h2>{character.name}</h2>
+                    <p>Level: {character.level}</p>
+                    <p>Health: {character.health}</p>
+                    <p>Mana: {character.mana}</p>
+                </div>
+                <div className="inventory">
+                    <h2>Inventory</h2>
+                    {inventory.map(item => (
+                        <p key={item.id}>{item.name}</p>
+                    ))}
+                </div>
+                <InteractiveMap />
+                <QuestLog quests={quests} />
+                <DialogueBox dialogue={dialogue} onDialogueUpdate={this.handleDialogueUpdate} />
+            </div>
+        );
+    }
+}
 
 export default MainGameInterface;
 ```

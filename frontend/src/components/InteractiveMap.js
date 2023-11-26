@@ -1,28 +1,44 @@
 ```javascript
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { Component } from 'react';
 
-const InteractiveMap = ({ characterLocation }) => {
-    const [position, setPosition] = useState(characterLocation);
+class InteractiveMap extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            mapData: [],
+            currentLocation: null,
+        };
+    }
 
-    useEffect(() => {
-        setPosition(characterLocation);
-    }, [characterLocation]);
+    componentDidMount() {
+        // Fetch map data from API or state management
+        // This is a placeholder and should be replaced with actual data fetching logic
+        const mapData = [];
+        this.setState({ mapData });
+    }
 
-    return (
-        <MapContainer center={position} zoom={13} style={{ height: "100vh", width: "100%" }}>
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            />
-            <Marker position={position}>
-                <Popup>
-                    You are here
-                </Popup>
-            </Marker>
-        </MapContainer>
-    );
-};
+    handleLocationClick(location) {
+        // Handle what happens when a location on the map is clicked
+        // This could involve navigating to the location, opening a dialogue, etc.
+        this.setState({ currentLocation: location });
+    }
+
+    render() {
+        return (
+            <div className="interactive-map">
+                {this.state.mapData.map((location) => (
+                    <div
+                        key={location.id}
+                        className="location"
+                        onClick={() => this.handleLocationClick(location)}
+                    >
+                        {location.name}
+                    </div>
+                ))}
+            </div>
+        );
+    }
+}
 
 export default InteractiveMap;
 ```

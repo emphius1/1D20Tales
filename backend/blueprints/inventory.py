@@ -1,36 +1,24 @@
 ```python
-from flask import Blueprint, request, jsonify
-from backend.database.crud_operations import get_inventory, add_item, remove_item
+from flask import Blueprint, request
+from database.crud.inventory import add_item, get_item, update_item, delete_item
 
 inventory_bp = Blueprint('inventory_bp', __name__)
 
-@inventory_bp.route('/inventory/<character_id>', methods=['GET'])
-def retrieve_inventory(character_id):
-    inventory = get_inventory(character_id)
-    if inventory:
-        return jsonify(inventory), 200
-    else:
-        return jsonify({"error": "Inventory not found"}), 404
+@inventory_bp.route('/inventory', methods=['POST'])
+def add_new_item():
+    item_data = request.get_json()
+    return add_item(item_data)
 
-@inventory_bp.route('/inventory/add', methods=['POST'])
-def add_to_inventory():
-    data = request.get_json()
-    character_id = data.get('character_id')
-    item = data.get('item')
-    result = add_item(character_id, item)
-    if result:
-        return jsonify({"message": "Item added successfully"}), 200
-    else:
-        return jsonify({"error": "Failed to add item"}), 400
+@inventory_bp.route('/inventory/<item_id>', methods=['GET'])
+def get_single_item(item_id):
+    return get_item(item_id)
 
-@inventory_bp.route('/inventory/remove', methods=['POST'])
-def remove_from_inventory():
-    data = request.get_json()
-    character_id = data.get('character_id')
-    item = data.get('item')
-    result = remove_item(character_id, item)
-    if result:
-        return jsonify({"message": "Item removed successfully"}), 200
-    else:
-        return jsonify({"error": "Failed to remove item"}), 400
+@inventory_bp.route('/inventory/<item_id>', methods=['PUT'])
+def update_single_item(item_id):
+    item_data = request.get_json()
+    return update_item(item_id, item_data)
+
+@inventory_bp.route('/inventory/<item_id>', methods=['DELETE'])
+def delete_single_item(item_id):
+    return delete_item(item_id)
 ```

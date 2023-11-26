@@ -5,7 +5,7 @@ const QuestLog = () => {
     const [quests, setQuests] = useState([]);
 
     useEffect(() => {
-        // Fetch quests from API
+        // Fetch quests from the backend
         fetch('/api/quests')
             .then(response => response.json())
             .then(data => setQuests(data.quests));

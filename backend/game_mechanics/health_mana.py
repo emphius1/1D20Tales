@@ -1,35 +1,40 @@
 ```python
-from backend.character_classes.races import Race
-from backend.character_classes.classes import Class
-
 class HealthManaSystem:
-    def __init__(self):
-        self.characters = []
+    def __init__(self, character_class, equipment):
+        self.character_class = character_class
+        self.equipment = equipment
+        self.health = self.calculate_health()
+        self.mana = self.calculate_mana()
 
-    def add_character(self, character_race: Race, character_class: Class):
-        character = {
-            'race': character_race,
-            'class': character_class,
-            'health': self.calculate_health(character_race, character_class),
-            'mana': self.calculate_mana(character_race, character_class)
-        }
-        self.characters.append(character)
+    def calculate_health(self):
+        base_health = self.character_class.base_health
+        health_bonus = sum(item.health_bonus for item in self.equipment)
+        return base_health + health_bonus
 
-    def calculate_health(self, character_race: Race, character_class: Class):
-        base_health = 100
-        race_health_modifier = character_race.health_modifier
-        class_health_modifier = character_class.health_modifier
-        return base_health + race_health_modifier + class_health_modifier
+    def calculate_mana(self):
+        base_mana = self.character_class.base_mana
+        mana_bonus = sum(item.mana_bonus for item in self.equipment)
+        return base_mana + mana_bonus
 
-    def calculate_mana(self, character_race: Race, character_class: Class):
-        base_mana = 100
-        race_mana_modifier = character_race.mana_modifier
-        class_mana_modifier = character_class.mana_modifier
-        return base_mana + race_mana_modifier + class_mana_modifier
+    def take_damage(self, damage):
+        self.health -= damage
+        if self.health < 0:
+            self.health = 0
 
-    def update_health(self, character_index: int, health_change: int):
-        self.characters[character_index]['health'] += health_change
+    def use_mana(self, mana_cost):
+        if self.mana >= mana_cost:
+            self.mana -= mana_cost
+            return True
+        else:
+            return False
 
-    def update_mana(self, character_index: int, mana_change: int):
-        self.characters[character_index]['mana'] += mana_change
+    def heal(self, healing):
+        self.health += healing
+        if self.health > self.calculate_health():
+            self.health = self.calculate_health()
+
+    def restore_mana(self, mana_restore):
+        self.mana += mana_restore
+        if self.mana > self.calculate_mana():
+            self.mana = self.calculate_mana()
 ```

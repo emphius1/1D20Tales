@@ -8,20 +8,27 @@ combat_blueprint = Blueprint('combat', __name__)
 def start_combat():
     data = request.get_json()
     combat = Combat(data['character_id'], data['enemy_id'])
-    result = combat.start()
-    return jsonify(result), 200
+    combat.start()
+    return jsonify({'message': 'Combat started'}), 200
 
-@combat_blueprint.route('/combat/action', methods=['POST'])
-def combat_action():
+@combat_blueprint.route('/combat/attack', methods=['POST'])
+def attack():
     data = request.get_json()
     combat = Combat(data['character_id'], data['enemy_id'])
-    result = combat.action(data['action'])
-    return jsonify(result), 200
+    result = combat.attack()
+    return jsonify({'message': result}), 200
 
-@combat_blueprint.route('/combat/end', methods=['POST'])
-def end_combat():
+@combat_blueprint.route('/combat/defend', methods=['POST'])
+def defend():
     data = request.get_json()
     combat = Combat(data['character_id'], data['enemy_id'])
-    result = combat.end()
-    return jsonify(result), 200
+    result = combat.defend()
+    return jsonify({'message': result}), 200
+
+@combat_blueprint.route('/combat/flee', methods=['POST'])
+def flee():
+    data = request.get_json()
+    combat = Combat(data['character_id'], data['enemy_id'])
+    result = combat.flee()
+    return jsonify({'message': result}), 200
 ```

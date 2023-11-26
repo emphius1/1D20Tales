@@ -34,7 +34,7 @@ class HalfElf(Race):
 
 class HalfOrc(Race):
     def __init__(self):
-        super().__init__("Half-Orc", {"strength": 12, "dexterity": 10, "constitution": 12, "intelligence": 8, "wisdom": 10, "charisma": 10})
+        super().__init__("Half-Orc", {"strength": 14, "dexterity": 10, "constitution": 12, "intelligence": 8, "wisdom": 10, "charisma": 8})
 
 class Tiefling(Race):
     def __init__(self):
